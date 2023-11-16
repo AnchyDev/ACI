@@ -5,13 +5,16 @@
 [worldserver]
 
 ########################################
-# My module configuration
+# ACI Configuration
 ########################################
 #
-#    MyModule.Enable
-#        Description: Enable my module and print "Hello World" message at server start
+#    ACI.Client.Enable
+#        Description: Enables the ACI client connection.
 #        Default:     0 - Disabled
 #                     1 - Enabled
 #
 
-MyModule.Enable = 1
+ACI.Client.Enable = 0
+
+ACI.Server.Address = 127.0.0.1
+ACI.Server.Port = 4411
