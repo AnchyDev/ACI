@@ -1,0 +1,14 @@
+{
+    "IPAddress": "0.0.0.0",
+    "Port": 4411,
+    "Discord": {
+        "BotToken": "BOT_TOKEN",
+        "Servers": [
+            {
+                "Name": "DiscordServer",
+                "GuildId": 0,
+                "ChannelId": 0
+            }
+        ]
+    }
+}
