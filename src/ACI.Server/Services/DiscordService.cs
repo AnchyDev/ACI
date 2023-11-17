@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace ACI.Server.Services
 {
-    public class DiscordService : BackgroundService
+    public class DiscordService : IHostedService
     {
         public bool Ready { get; set; }
 
@@ -35,7 +35,7 @@ namespace ACI.Server.Services
             discord.MessageReceived += Discord_MessageReceived;
         }
 
-        public override async Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
             Debug.Assert(config is not null);
             Debug.Assert(config.Discord is not null);
@@ -49,7 +49,7 @@ namespace ACI.Server.Services
             Ready = true;
         }
 
-        public override async Task StopAsync(CancellationToken cancellationToken)
+        public async Task StopAsync(CancellationToken cancellationToken)
         {
             if(discord.LoginState == LoginState.LoggedIn)
             {
@@ -122,7 +122,5 @@ namespace ACI.Server.Services
                 await channel.SendMessageAsync(embed: builder.Build());
             }
         }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken) { }
     }
 }

@@ -13,7 +13,7 @@ using System.Text.Json;
 
 namespace ACI.Server.Services
 {
-    public class InterconnectService : BackgroundService
+    public class InterconnectService : IHostedService
     {
         public bool Ready { get; set; }
 
@@ -42,7 +42,7 @@ namespace ACI.Server.Services
             };
         }
 
-        public override async Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
             logger.LogInformation("Starting listener..");
             listener.Start();
@@ -52,7 +52,7 @@ namespace ACI.Server.Services
             await StartListeningAsync(cancellationToken);
         }
 
-        public override async Task StopAsync(CancellationToken cancellationToken)
+        public async Task StopAsync(CancellationToken cancellationToken)
         {
             await Task.Run(() =>
             {
@@ -181,7 +181,5 @@ namespace ACI.Server.Services
                 await client.GetStream().WriteAsync(Encoding.UTF8.GetBytes(json));
             }
         }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken) { }
     }
 }
