@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACI.Server", "ACI.Server.csproj", "{A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACI.Server", "ACI.Server.csproj", "{A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}"
 EndProject
 Global
     GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,7 @@ Global
         HideSolutionNode = FALSE
     EndGlobalSection
     GlobalSection(ExtensibilityGlobals) = postSolution
-        SolutionGuid = {B9E443CA-D0F4-4CB1-86C3-7954E5A845A9}
+                SolutionGuid = {B9E443CA-D0F4-4CB1-86C3-7954E5A845A9}
+        SolutionGuid = {00D8DEF2-179C-43D4-9CAE-8574CA33CA45}
     EndGlobalSection
 EndGlobal
