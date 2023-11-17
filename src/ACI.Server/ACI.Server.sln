@@ -6,20 +6,20 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACI.Server", "ACI.Server.csproj", "{A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}"
 EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B9E443CA-D0F4-4CB1-86C3-7954E5A845A9}
-	EndGlobalSection
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Release|Any CPU = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {A1E9C2A7-BF6B-47AD-8B03-B9FE4FC27DE9}.Release|Any CPU.Build.0 = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(SolutionProperties) = preSolution
+        HideSolutionNode = FALSE
+    EndGlobalSection
+    GlobalSection(ExtensibilityGlobals) = postSolution
+        SolutionGuid = {B9E443CA-D0F4-4CB1-86C3-7954E5A845A9}
+    EndGlobalSection
 EndGlobal
