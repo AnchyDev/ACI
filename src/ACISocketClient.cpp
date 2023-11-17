@@ -71,7 +71,7 @@ void ACISocketClient::Connect(std::string privateKey)
 
         // The private key should always be 32 characters in length (MD5).
         socket.send(boost::asio::buffer(privateKey.data(), sizeof(char) * 32));
-        
+
         shouldReconnect = false;
         retryCounter = 0;
 
