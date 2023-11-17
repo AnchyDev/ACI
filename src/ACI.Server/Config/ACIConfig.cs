@@ -6,6 +6,7 @@ namespace ACI.Server.Config
     {
         public string? IPAddress { get; set; }
         public int Port { get; set; }
+        public string? PrivateKey { get; set; }
         public ACIDiscordConfig? Discord { get; set; }
     }
 }

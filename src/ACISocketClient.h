@@ -15,7 +15,7 @@ public:
     void ReceiveHandler();
     void RegisterHandler(uint32_t opCode, const std::function<void()>& operation);
 
-    void Connect();
+    void Connect(std::string privateKey);
     void Disconnect();
 
     bool IsConnected();

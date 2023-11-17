@@ -1,14 +1,16 @@
 {
     "IPAddress": "0.0.0.0",
     "Port": 4411,
+    "PrivateKey": "824892a25354edc0aec952244c24adda",
     "Discord": {
         "BotToken": "BOT_TOKEN",
         "Servers": [
             {
-                "Name": "DiscordServer",
+                "Name": "MyDiscordServer",
                 "GuildId": 0,
                 "ChannelId": 0
             }
         ]
     }
 }
+

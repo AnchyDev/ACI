@@ -27,5 +27,26 @@ namespace ACI.Server.Network
 
             return encoding.GetString(msgBuf);
         }
+
+        public static async Task<string> ReadStringAsync(this NetworkStream stream, uint length, Encoding? encoding = null)
+        {
+            var msgBuf = new byte[length];
+            await stream.ReadAsync(msgBuf);
+
+            if (encoding is null)
+            {
+                encoding = Encoding.UTF8;
+            }
+
+            return encoding.GetString(msgBuf);
+        }
+
+        public static async Task<uint> ReadUInt32Async(this NetworkStream stream)
+        {
+            var buf = new byte[sizeof(uint)];
+            await stream.ReadAsync(buf);
+
+            return BitConverter.ToUInt32(buf);
+        }
     }
 }

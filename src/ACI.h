@@ -16,6 +16,8 @@ enum ACIOpCodes
 {
     ACI_CMSG_MSG = 0,
     ACI_SMSG_MSG = 1,
+    ACI_SMSG_AUTH = 2,
+    ACI_CMSG_AUTH = 3
 };
 
 class ACISocketHandler

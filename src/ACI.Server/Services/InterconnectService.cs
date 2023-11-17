@@ -82,6 +82,45 @@ namespace ACI.Server.Services
             {
                 var stream = client.GetStream();
 
+                if (!string.IsNullOrEmpty(config.PrivateKey))
+                {
+                    logger.LogInformation($"Authenticating client '{client.Client.RemoteEndPoint}'..");
+
+                    uint opCode = await stream.ReadUInt32Async();
+
+                    if(opCode != (uint)ACIOpCode.CMSG_AUTH)
+                    {
+                        logger.LogWarning($"Client '{client.Client.RemoteEndPoint}' sent OpCode '{opCode}' when '{(uint)ACIOpCode.CMSG_AUTH}' was expected, kicking..");
+                        client.Close();
+                        return;
+                    }
+
+                    string key = await stream.ReadStringAsync(length: 32);
+
+                    if (string.IsNullOrEmpty(key))
+                    {
+                        logger.LogWarning($"Client '{client.Client.RemoteEndPoint}' failed to provide a private key, kicking..");
+                        client.Close();
+                        return;
+                    }
+
+                    if (key != config.PrivateKey)
+                    {
+                        logger.LogWarning($"Client '{client.Client.RemoteEndPoint}' failed to provide a valid private key, kicking..");
+                        client.Close();
+                        return;
+                    }
+
+                    logger.LogInformation($"Client '{client.Client.RemoteEndPoint}' authenticated.");
+                }
+                else
+                {
+                    logger.LogWarning("You have not set a private key, this means all clients are accepted. CHANGE THIS!!");
+                }
+
+                // Send response to notify connection accepted.
+                await stream.WriteAsync(BitConverter.GetBytes((uint)ACIOpCode.SMSG_AUTH), 0, sizeof(uint));
+
                 connectedClients.Add(client);
                 logger.LogInformation($"Client '{client.Client.RemoteEndPoint}' connected.");
 

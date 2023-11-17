@@ -58,8 +58,16 @@ void ACIWorldScript::OnAfterConfigLoad(bool reload)
         sACISocketHandler->Client->Disconnect();
     }
 
+    std::string privateKey = sConfigMgr->GetOption<std::string>("ACI.Server.PrivateKey", "");
+
+    if (privateKey.empty())
+    {
+        LOG_WARN("module", "You have not set a private key for AzerothCore Interconnect.");
+        return;
+    }
+
     sACISocketHandler->Client->ResetRetries();
-    sACISocketHandler->Client->Connect();
+    sACISocketHandler->Client->Connect(privateKey);
     sACISocketHandler->Client->RegisterHandler(ACI_SMSG_MSG, [this]()
     {
         std::string json = sACISocketHandler->Client->ReadString();
@@ -70,6 +78,10 @@ void ACIWorldScript::OnAfterConfigLoad(bool reload)
         std::string message = data.at("message");
 
         SendIChatMessageToAll(99, origin, author, message);
+    });
+    sACISocketHandler->Client->RegisterHandler(ACI_SMSG_AUTH, [this]()
+    {
+        LOG_INFO("module", "Successfully authenticated to the ACI Server!");
     });
 }
 
@@ -87,8 +99,10 @@ void ACIWorldScript::OnUpdate(uint32 diff)
         sACISocketHandler->Client->shouldReconnect = false;
         scheduler.Schedule(5s, [this](TaskContext)
         {
+            std::string privateKey = sConfigMgr->GetOption<std::string>("ACI.Server.PrivateKey", "");
+
             sACISocketHandler->Client->Disconnect();
-            sACISocketHandler->Client->Connect();
+            sACISocketHandler->Client->Connect(privateKey);
         });
     }
 }

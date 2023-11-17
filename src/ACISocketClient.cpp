@@ -46,11 +46,11 @@ void ACISocketClient::RegisterHandler(uint32_t opCode, const std::function<void(
     handlers.emplace(opCode, operation);
 }
 
-void ACISocketClient::Connect()
+void ACISocketClient::Connect(std::string privateKey)
 {
     if (retryCounter >= 5)
     {
-        LOG_WARN("module", "Reached maximum retries (5), reload config to manually reconnect to server.");
+        LOG_WARN("module", "Reached maximum retries (5), type `reload config` to manually reconnect to server.");
         return;
     }
 
@@ -61,7 +61,17 @@ void ACISocketClient::Connect()
     {
         socket.connect(endpoint);
 
-        LOG_INFO("module", "Connected!");
+        LOG_INFO("module", "Connected.");
+
+        LOG_INFO("module", "Authenticating..");
+        LOG_INFO("module", "Sending private key: {}:{}", privateKey, privateKey.size());
+
+        uint32 opCode = ACI_CMSG_AUTH;
+        socket.send(boost::asio::buffer(&opCode, sizeof(uint32)));
+
+        // The private key should always be 32 characters in length (MD5).
+        socket.send(boost::asio::buffer(privateKey.data(), sizeof(char) * 32));
+        
         shouldReconnect = false;
         retryCounter = 0;
 

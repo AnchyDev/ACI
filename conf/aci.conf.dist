@@ -16,5 +16,7 @@
 
 ACI.Client.Enable = 0
 
-ACI.Server.Address = 127.0.0.1
+ACI.Server.Address = "127.0.0.1"
 ACI.Server.Port = 4411
+
+ACI.Server.PrivateKey = "824892a25354edc0aec952244c24adda"
