@@ -84,10 +84,16 @@ namespace ACI.Server.Services
 
                 string json = "{ \"origin\": \"Discord\", \"author\": \"" + arg.Author.Username + "\", \"message\":\"" + arg.CleanContent + "\" }";
                 await interconnect.BroadcastAsync(json);
+                await BroadcastAsync(new PacketMessage()
+                {
+                    Origin = "Discord",
+                    Author = arg.Author.Username,
+                    Message = arg.CleanContent
+                }, arg.Channel.Id);
             }
         }
 
-        public async Task BroadcastAsync(PacketMessage message)
+        public async Task BroadcastAsync(PacketMessage message, ulong? originChannel = null)
         {
             Debug.Assert(discord is not null);
             Debug.Assert(config is not null);
@@ -101,6 +107,15 @@ namespace ACI.Server.Services
                 {
                     logger.LogError($"Failed to find Guild for server {server.Name}.");
                     continue;
+                }
+
+                // Don't broadcast discord messages back to the same channel.
+                if(originChannel is not null)
+                {
+                    if(server.ChannelId == originChannel.Value)
+                    {
+                        continue;
+                    }
                 }
 
                 var channel = guild.GetTextChannel(server.ChannelId);
