@@ -110,14 +110,18 @@ namespace ACI.Server.Services
                     continue;
                 }
 
+                string icon = "https://i.imgur.com/wYuzaEL.png";
+
+                if (message.Origin != "Discord")
+                {
+                    icon = message.Faction == Faction.Alliance ? "https://i.imgur.com/32rFlXr.png" : "https://i.imgur.com/RMxJKjF.png";
+                }
+
                 var builder = new EmbedBuilder()
-                    .WithAuthor($"{message.Origin} - {message.Author}")
+                    .WithAuthor($"{message.Origin} - {message.Author}", icon)
                     .WithDescription(message.Message)
                     .WithCurrentTimestamp()
-                    .WithColor(Color.Green)
-                    .WithDescription("Test")
-                    .AddField("TestField", "Ay")
-                    .AddField("TestField2", "Ay2", true);
+                    .WithColor(Color.Green);
 
                 await channel.SendMessageAsync(embed: builder.Build());
             }

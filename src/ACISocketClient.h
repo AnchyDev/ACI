@@ -21,7 +21,7 @@ public:
     bool IsConnected();
     void ResetRetries();
 
-    void SendPacketMsg(std::string realm, std::string name, std::string msg);
+    void SendPacketMsg(uint32_t faction, std::string realm, std::string name, std::string msg);
 
     uint32_t ReadUInt32();
     std::string ReadString();

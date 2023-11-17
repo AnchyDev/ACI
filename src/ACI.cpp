@@ -18,14 +18,21 @@ std::string ACISocketHandler::ReplaceEmojis(std::string msg)
     return msg;
 }
 
-void SendIChatMessageToAll(std::string origin, std::string author, std::string message)
+void SendIChatMessageToAll(uint32 faction, std::string origin, std::string author, std::string message)
 {
     //worldMsg = ReplaceEmojis(worldMsg);
-    std::string prefix = Acore::StringFormatFmt("|TInterface\\CHATFRAME\\UI-ChatWhisperIcon:16:16|t|cffFFFFFF[|cff00FF00{}|cffFFFFFF]|r", origin);
+    std::string prefix = Acore::StringFormatFmt("|TInterface\\CHATFRAME\\UI-ChatWhisperIcon:16:16|t|cffFFFFFF[|cff5662F6Discord|cffFFFFFF]|r");
 
-    if (origin == "Discord")
+    if (origin != "Discord")
     {
-        prefix = "|TInterface\\CHATFRAME\\UI-ChatWhisperIcon:16:16|t|cffFFFFFF[|cff5662F6Discord|cffFFFFFF]|r";
+        if (faction == TEAM_ALLIANCE)
+        {
+            prefix = Acore::StringFormatFmt("|TInterface\\GROUPFRAME\\UI-Group-PVP-Alliance:16:16|t|cffFFFFFF[|cff00FF00{}|cffFFFFFF]|r", origin);
+        }
+        else if (faction == TEAM_HORDE)
+        {
+            prefix = Acore::StringFormatFmt("|TInterface\\GROUPFRAME\\UI-Group-PVP-Horde:16:16|t|cffFFFFFF[|cff00FF00{}|cffFFFFFF]|r", origin);
+        }
     }
 
     std::string msg = Acore::StringFormatFmt("{}|cffFFFFFF[|cffB0A9B2{}|cffFFFFFF]: |cffFFFFFF{}|r", prefix, author, message);
@@ -62,7 +69,7 @@ void ACIWorldScript::OnAfterConfigLoad(bool reload)
         std::string author = data.at("author");
         std::string message = data.at("message");
 
-        SendIChatMessageToAll(origin, author, message);
+        SendIChatMessageToAll(99, origin, author, message);
     });
 }
 
@@ -118,11 +125,12 @@ bool ACICommandsScript::HandleACIChatCommand(ChatHandler* handler, Tail msg)
     }
 
     std::string realmName = realm.Name;
+    uint32 faction = player->GetTeamId();
 
     LOG_INFO("module", "Sending player message to server.");
-    sACISocketHandler->Client->SendPacketMsg(realmName, player->GetName(), msg.data());
+    sACISocketHandler->Client->SendPacketMsg(faction, realmName, player->GetName(), msg.data());
 
-    SendIChatMessageToAll(realmName, player->GetName(), msg.data());
+    SendIChatMessageToAll(faction, realmName, player->GetName(), msg.data());
 
     return true;
 }

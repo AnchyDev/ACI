@@ -12,5 +12,8 @@ namespace ACI.Server.Services.Models
 
         [JsonPropertyName("message")]
         public string? Message { get; set; }
+
+        [JsonPropertyName("faction")]
+        public Faction Faction { get; set; }
     }
 }

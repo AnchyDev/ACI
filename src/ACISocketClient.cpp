@@ -117,7 +117,7 @@ void ACISocketClient::ResetRetries()
     retryCounter = 0;
 }
 
-void ACISocketClient::SendPacketMsg(std::string realm, std::string name, std::string msg)
+void ACISocketClient::SendPacketMsg(uint32_t faction, std::string realm, std::string name, std::string msg)
 {
     try
     {
@@ -127,6 +127,7 @@ void ACISocketClient::SendPacketMsg(std::string realm, std::string name, std::st
         json["origin"] = realm;
         json["author"] = name;
         json["message"] = msg;
+        json["faction"] = faction;
 
         std::string data = json.dump();
         uint32 size = data.size();
