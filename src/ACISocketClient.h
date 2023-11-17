@@ -7,7 +7,7 @@
 class ACISocketClient
 {
 public:
-    ACISocketClient(std::string address, uint32_t port) : resolver(io_context), socket(io_context), buffer(), listening(false), shouldReconnect(false), retryCounter(0)
+    ACISocketClient(std::string address, uint32_t port) : resolver(io_context), socket(io_context), buffer(), shouldReconnect(false), listening(false), retryCounter(0)
     {
         endpoint = boost::asio::ip::tcp::endpoint(boost::asio::ip::make_address(address), port);
     }
